@@ -54,20 +54,21 @@ public class BrandManager implements BrandService{
 
     @Override
     public void update(UpdateBrandRequest updateBrandRequest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Brand brand=this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
+        this.brandRepository.save(brand);
     }
 
     @Override
     public void delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        this.brandRepository.deleteById(id);
     }
 
     @Override
     public GetByIdBrandResponse getById(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        Brand brand=this.brandRepository.findById(id).orElseThrow();
+
+        GetByIdBrandResponse response=this.modelMapperService.forResponse().map(brand, GetByIdBrandResponse.class);
+        return response;
     }
     
 }
